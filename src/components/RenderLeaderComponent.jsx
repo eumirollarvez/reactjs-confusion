@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
-  function RenderLeader({ leader }) {
+  function LeaderDetail({ leader }) {
     if (leader == null) return ( <div></div> );
 
     return (
@@ -16,14 +16,14 @@ import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
     );
   }
 
-  const LeaderDetail = (props) => {
+  const RenderLeader = (props) => {
       return (
         <div className="container">
           <div className="row">
-            <RenderLeader leader={ props.leader } />
+            <LeaderDetail leader={ props.leader } />
           </div>
         </div>
       );
     }
 
-export default LeaderDetails;
+export default RenderLeader;
