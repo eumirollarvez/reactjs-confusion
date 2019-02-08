@@ -21,7 +21,7 @@ import { Link } from 'react-router-dom';
     
     const dishComment = comments.map((comment) => {
       return (
-        <ul className="list-unstyled">
+        <ul key={ comment.id } className="list-unstyled">
           <li>{comment.comment}</li>
           <li> --- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} </li>
         </ul>
@@ -54,7 +54,7 @@ import { Link } from 'react-router-dom';
             <RenderDish dish={ props.dish } />
           </div>
           <div className="col-12 col-md-5 m-1">
-            <RenderComments comments={ props.dish ? props.dish.comments : null } />
+            <RenderComments comments={ props.comments } />
           </div>
         </div>
       </div>
