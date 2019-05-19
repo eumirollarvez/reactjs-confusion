@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Row, Col, Label } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 const maxLength = (len) => (val) => !val || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
@@ -37,7 +38,7 @@ class CommentForm extends Component {
           </Button>
           <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
             <ModalHeader toggle={this.toggleModal}>
-                New Comment
+              New Comment
             </ModalHeader>
             <ModalBody>
                 <div className="col-12 col-md-9">
@@ -98,17 +99,33 @@ class CommentForm extends Component {
 }
 
   function RenderDish({ dish }) {
-    if (dish == null) return ( <div></div> );
-
-    return (
-      <Card>
-        <CardImg top src={ dish.image } alt={ dish.name } />
-        <CardBody>
-          <CardTitle>{ dish.name }</CardTitle>
-          <CardText>{ dish.description }</CardText>
-        </CardBody>
-      </Card>
-    );
+    if (this.props.isLoading) {
+      return(
+        <div className="container">
+          <div className="row">            
+            <Loading />
+          </div>
+        </div>
+      );
+    } else if (this.props.errMess) {
+      return(
+        <div className="container">
+          <div className="row">            
+            <h4>{this.props.errMess}</h4>
+          </div>
+        </div>
+      );
+    } else if (this.dish != null) {
+      return (
+        <Card>
+          <CardImg top src={ dish.image } alt={ dish.name } />
+          <CardBody>
+            <CardTitle>{ dish.name }</CardTitle>
+            <CardText>{ dish.description }</CardText>
+          </CardBody>
+        </Card>
+      );
+    }
   }
 
   function RenderComments({ comments, addComment, dishId }) {
